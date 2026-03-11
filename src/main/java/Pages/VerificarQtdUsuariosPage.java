@@ -18,24 +18,24 @@ public class VerificarQtdUsuariosPage extends UsefulConstants {
 
             String textoSite = EsperoEstarVisivel(TOTAL_USUARIOS).getText();
             int qtdAtualSistema = Integer.parseInt(textoSite.split(" ")[0]);
-            int qtdAnteriorArquivo = FileHelperPage.lerQtdArquivo();
+            int qtdAnteriorArquivo = FileHelperPage.lerInteiroArquivo(PATH_QTD_USERS);
 
             String statusRelatorio = "";
 
             System.out.println("--- Comparação de Usuários ---");
 
             if (qtdAtualSistema > qtdAnteriorArquivo) {
-                statusRelatorio = "Novos usuários entraram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")";
+                statusRelatorio = "Novos usuários se cadastraram! (Qtd anterior: " + qtdAnteriorArquivo + " | Qtd Atual: " + qtdAtualSistema + ")";
             } else if (qtdAtualSistema < qtdAnteriorArquivo) {
-                statusRelatorio = "Usuários saíram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")";
+                statusRelatorio = "Usuários saíram ou foram excluídos! (Qtd anterior: " + qtdAnteriorArquivo + " | Qtd Atual: " + qtdAtualSistema + ")";
             } else {
-                statusRelatorio = "A quantidade de usuários se manteve igual (" + qtdAtualSistema + ")";
+                statusRelatorio = "A quantidade de usuários se mantém igual (" + qtdAtualSistema + ")";
             }
 
             System.out.println("Resultado: " + statusRelatorio);
 
             // Atualiza o arquivo
-            FileHelperPage.salvarQtdArquivo(qtdAtualSistema);
+            FileHelperPage.salvarQtdArquivo(PATH_QTD_USERS, qtdAtualSistema);
 
             // Envia o e-mail com o status gerado
             EmailServicePage.enviarRelatorioUsuario(statusRelatorio);

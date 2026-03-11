@@ -6,12 +6,15 @@ import java.util.Properties;
 
 public class EmailServicePage {
 
+     private static final String PATH_SENHA = "E:\\Resolvi.IA\\SENHA.txt";
+
      public static void enviarRelatorioUsuario(String mensagemRelatorio) {
-          // Configurações do servidor (Exemplo com Gmail)
+
+          // Configurações do servidor
           String host = "smtp.gmail.com";
           final String usuario = "frbs1711@gmail.com";
-          final String senha = "";
-          String listaDestinatarios = "frbs1711@gmail.com, vi.fbs.2408@gmail.com";
+          final String senha = FileHelperPage.lerStringArquivo(PATH_SENHA);
+          String listaDestinatarios = "frbs1711@gmail.com, odilio.xavier.junior@gmail.com";
 
           Properties props = new Properties();
           props.put("mail.smtp.auth", "true");
@@ -29,7 +32,7 @@ public class EmailServicePage {
                Message message = new MimeMessage(session);
                message.setFrom(new InternetAddress(usuario));
                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(listaDestinatarios));
-               message.setSubject("Relatório de Monitoramento: Resolvi.IA");
+               message.setSubject("Relatório de Monitoramento de usuários: Resolvi.IA");
 
                // Corpo do e-mail formatado
                message.setText("Olá,\n\nSegue o status atualizado dos usuários no sistema:\n\n"
