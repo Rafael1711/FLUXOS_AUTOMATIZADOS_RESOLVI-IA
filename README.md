@@ -16,7 +16,7 @@ O objetivo da automação é **monitorar variações na quantidade de usuários 
 
 ### Fluxo da automação:
 
-1. Acessar o site  
+1. Acessar a plataforma  
    `https://resolvi.ia.br`
 
 2. Realizar autenticação como **administrador**
