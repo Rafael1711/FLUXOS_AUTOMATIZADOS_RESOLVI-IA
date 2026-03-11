@@ -14,29 +14,31 @@ public class VerificarQtdUsuariosPage extends UsefulConstants {
     public void verificarQtdUsuarios() {
         try {
             LoginPageObject.fazerLogin();
-
             ClicoNoElemento(OPCAO_USUARIOS);
 
-            // 1. Captura e converte o valor atual do sistema
             String textoSite = EsperoEstarVisivel(TOTAL_USUARIOS).getText();
             int qtdAtualSistema = Integer.parseInt(textoSite.split(" ")[0]);
-
-            // 2. Busca o valor que estava salvo no arquivo TXT
             int qtdAnteriorArquivo = FileHelperPage.lerQtdArquivo();
 
-            // 3. Lógica de Comparação
+            String statusRelatorio = "";
+
             System.out.println("--- Comparação de Usuários ---");
+
             if (qtdAtualSistema > qtdAnteriorArquivo) {
-                System.out.println("Resultado: Novos usuários entraram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")");
+                statusRelatorio = "Novos usuários entraram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")";
             } else if (qtdAtualSistema < qtdAnteriorArquivo) {
-                System.out.println("Resultado: Usuários saíram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")");
+                statusRelatorio = "Usuários saíram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")";
             } else {
-                System.out.println("Resultado: A quantidade de usuários se manteve igual (" + qtdAtualSistema + ")");
+                statusRelatorio = "A quantidade de usuários se manteve igual (" + qtdAtualSistema + ")";
             }
 
-            // 4. Atualiza o arquivo TXT com o novo valor para a próxima execução
+            System.out.println("Resultado: " + statusRelatorio);
+
+            // Atualiza o arquivo
             FileHelperPage.salvarQtdArquivo(qtdAtualSistema);
-            System.out.println("Arquivo QTD_USERS.txt atualizado com sucesso.");
+
+            // Envia o e-mail com o status gerado
+            EmailServicePage.enviarRelatorioUsuario(statusRelatorio);
 
         } catch (Exception e) {
             System.err.println("Erro no teste: " + e.getMessage());
