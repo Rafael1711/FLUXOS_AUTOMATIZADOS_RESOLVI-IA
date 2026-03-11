@@ -75,7 +75,7 @@ public class ChamadaDePaginas {
                     try {
                         start();
                         VerificarQtdUsuariosPage VerficarQtdUsuariosPageObject = new VerificarQtdUsuariosPage();
-                        VerficarQtdUsuariosPageObject.verficarQtdUsuarios();
+                        VerficarQtdUsuariosPageObject.verificarQtdUsuarios();
                         UsefulConstants.close();
                     } catch (Exception e) {
                         System.err.println("Erro no teste VerficarQtdUsuarios: " + e.getMessage());

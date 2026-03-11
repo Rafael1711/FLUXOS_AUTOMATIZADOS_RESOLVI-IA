@@ -11,22 +11,36 @@ public class VerificarQtdUsuariosPage extends UsefulConstants {
      */
      LoginPage LoginPageObject = new LoginPage();
 
-     public void verficarQtdUsuarios() {
-               LoginPageObject.fazerLogin();
+    public void verificarQtdUsuarios() {
+        try {
+            LoginPageObject.fazerLogin();
 
-               ClicoNoElemento(OPCAO_USUARIOS);
+            ClicoNoElemento(OPCAO_USUARIOS);
 
-               // 1. Captura o texto completo (ex: "150 usuários ativos")
-               String textoCompleto = EsperoEstarVisivel(TOTAL_USUARIOS).getText();
+            // 1. Captura e converte o valor atual do sistema
+            String textoSite = EsperoEstarVisivel(TOTAL_USUARIOS).getText();
+            int qtdAtualSistema = Integer.parseInt(textoSite.split(" ")[0]);
 
-               // 2. Faz o split pelo espaço em branco e pega a primeira posição [0]
-               String apenasNumeroString = textoCompleto.split(" ")[0];
+            // 2. Busca o valor que estava salvo no arquivo TXT
+            int qtdAnteriorArquivo = FileHelperPage.lerQtdArquivo();
 
-               // 3. Converte para Inteiro
-               int quantidadeUsuarios = Integer.parseInt(apenasNumeroString);
+            // 3. Lógica de Comparação
+            System.out.println("--- Comparação de Usuários ---");
+            if (qtdAtualSistema > qtdAnteriorArquivo) {
+                System.out.println("Resultado: Novos usuários entraram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")");
+            } else if (qtdAtualSistema < qtdAnteriorArquivo) {
+                System.out.println("Resultado: Usuários saíram! (Antes: " + qtdAnteriorArquivo + " | Agora: " + qtdAtualSistema + ")");
+            } else {
+                System.out.println("Resultado: A quantidade de usuários se manteve igual (" + qtdAtualSistema + ")");
+            }
 
-               // Exemplo de uso
-               System.out.println("Quantidade convertida: " + quantidadeUsuarios);
-               System.out.println("Teste: verficarQtdUsuarios - SUCESSO");
-     }
+            // 4. Atualiza o arquivo TXT com o novo valor para a próxima execução
+            FileHelperPage.salvarQtdArquivo(qtdAtualSistema);
+            System.out.println("Arquivo QTD_USERS.txt atualizado com sucesso.");
+
+        } catch (Exception e) {
+            System.err.println("Erro no teste: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
