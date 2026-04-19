@@ -3,8 +3,8 @@ package Locators;
 import org.openqa.selenium.By;
 
 public interface Login_Locators {
-    static String TITULO_PRINCIPAL = "Mais tempo para você, com a ajuda de quem resolve!";
+    static String TITULO_PRINCIPAL = "Ganhe tempo hoje:";
     static String PATH_TOKEN = "E:\\Resolvi.IA\\TOKEN.txt";
 
-    By  TITULO_PRINCIPAL_LOCATOR = By.xpath("//h1[@class='text-5xl md:text-7xl font-bold tracking-tight leading-tight']");
+    By  TITULO_PRINCIPAL_LOCATOR = By.xpath("//span[contains(text(),'Ganhe tempo hoje:')]");
 }
