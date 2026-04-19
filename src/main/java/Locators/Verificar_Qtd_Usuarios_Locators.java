@@ -8,5 +8,6 @@ public interface Verificar_Qtd_Usuarios_Locators {
 
     By OPCAO_USUARIOS = By.xpath("//a[contains(text(),'Usuários')]");
     By TOTAL_USUARIOS = By.xpath("//p[@class='text-sm md:text-lg text-gray-600 mt-1']");
+    By OPCAO_EXPLORAR_TAREFAS = By.xpath("//a[contains(text(),'Explorar Tarefas')]");
 
 }

@@ -14,6 +14,7 @@ public class VerificarQtdUsuariosPage extends UsefulConstants {
     public void verificarQtdUsuarios() {
         try {
             LoginPageObject.fazerLogin();
+
             ClicoNoElemento(OPCAO_USUARIOS);
 
             String textoSite = EsperoEstarVisivel(TOTAL_USUARIOS).getText();
